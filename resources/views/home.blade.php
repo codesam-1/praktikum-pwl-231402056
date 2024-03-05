@@ -7,7 +7,6 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    <p>Samuel Gautama Manik</p>
-    <p>Hallo</p>
+    <h1 class="text-5xl font-bold underline">HELLO WORLD!</h1>
 </body>
 </html>
