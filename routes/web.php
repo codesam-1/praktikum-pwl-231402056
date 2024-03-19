@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\TodoTaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
+
+Route::get('/', [TodoTaskController::class, 'index']);
 // view(nama viewnya, data yang dikirimkan ke view)
+
+Route::post('/', [TodoTaskController::class, 'store']);
