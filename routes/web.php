@@ -24,3 +24,5 @@ Route::get('/', [TodoTaskController::class, 'index']);
 // view(nama viewnya, data yang dikirimkan ke view)
 
 Route::post('/', [TodoTaskController::class, 'store']);
+
+Route::delete('/{id}', [TodoTaskController::class, 'destroy']);

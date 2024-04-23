@@ -2,22 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
+
 use Illuminate\Http\Request;
 
 class TodoTaskController extends Controller
 {
     public function index()
     {
-        $tasks = [
-            [
-                'task'    => 'Task1',
-                'tanggal' => '2022-03-21',
-            ],
-            [
-                'task'    => 'Task2',
-                'tanggal' => '2022-03-22',
-            ]
-        ];
+        $tasks = Task::all();
 
         return view('home', [
             'tasks' => $tasks,
@@ -26,24 +19,26 @@ class TodoTaskController extends Controller
 
     public function store(Request $request)
     {
-        $tasks = [
-            [
-                'task'    => 'Task1',
-                'tanggal' => '2022-03-21',
-            ],
-            [
-                'task'    => 'Task2',
-                'tanggal' => '2022-03-22',
-            ],
-        ];
-
-        $tasks[] = [
-            'task'    => $request->task,
-            'tanggal' => '2024-03-14',
-        ];
-
-        return view('home', [
-            'tasks' => $tasks,
+        $request->validate([
+            'task' => 'required | min:5',
+        ],
+        [
+            'task.required' => 'Tugas harus diisi',
+            'task.min'      => 'Tugas minimal 5 karakter'
         ]);
+
+        Task::create([
+            'task' => $request->task,
+            'tanggal' => NOW(),
+        ]);
+
+        return redirect('/');
+    }
+
+    public function destroy(Request $request)
+    {
+        Task::destroy($request->id);
+        
+        return redirect('/')->with('success', 'Tugas sudah selesai! Mantap!');
     }
 }
